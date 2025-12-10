@@ -19,7 +19,7 @@ A reverse engineering tool for analyzing Xamarin and Mono AOT-compiled Android a
 
 ### Option 1: Download Pre-built Binaries (Recommended)
 
-Pre-built standalone executables are available in the [Releases](releases) section:
+Pre-built standalone executables are available in the [releases](https://github.com/B0YK4/Xamarin-Assembly-Extractor/releases) section:
 
 |Platform|Architecture|Download|
 |---|---|---|
@@ -125,3 +125,4 @@ output/
 
 
 **Keywords:** Xamarin, Mono, Android, APK, DLL, Assembly, Reverse Engineering, .NET, libmonodroid, AOT, Decompiler, Extractor, Security Research
+
