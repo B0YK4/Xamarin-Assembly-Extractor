@@ -6,6 +6,9 @@ on:
       - 'v*'
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     strategy:
@@ -74,13 +77,52 @@ jobs:
             ${{ matrix.artifact_name }}.tar.gz
           if-no-files-found: warn
       
-      - name: Upload to release
-        if: startsWith(github.ref, 'refs/tags/')
+      - name: Upload to release (Windows x64 - creates release)
+        if: startsWith(github.ref, 'refs/tags/') && runner.os == 'Windows' && matrix.arch == 'x64'
         uses: softprops/action-gh-release@v1
         with:
-          files: |
-            ${{ matrix.artifact_name }}.zip
-            ${{ matrix.artifact_name }}.tar.gz
+          tag_name: ${{ github.ref_name }}
+          name: Xamarin Assembly Extractor ${{ github.ref_name }}
+          body: |
+            ## Xamarin Assembly Extractor ${{ github.ref_name }}
+            
+            Pre-built binaries for Windows and Linux.
+            
+            ### Downloads
+            - **Windows x64**: `xamarin-assembly-extractor-windows-x64.zip`
+            - **Windows x86**: `xamarin-assembly-extractor-windows-x86.zip`
+            - **Linux x64**: `xamarin-assembly-extractor-linux-x64.tar.gz`
+            - **Linux arm64**: `xamarin-assembly-extractor-linux-arm64.tar.gz`
+            
+            ### Usage
+            ```bash
+            # Extract from APK
+            ./xamarin-assembly-extractor app.apk -o output/
+            
+            # Extract from bundle
+            ./xamarin-assembly-extractor libmonodroid_bundle_app.so -o output/
+            ```
+          files: ${{ matrix.artifact_name }}.zip
+          fail_on_unmatched_files: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Upload to release (Windows x86)
+        if: startsWith(github.ref, 'refs/tags/') && runner.os == 'Windows' && matrix.arch == 'x86'
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.ref_name }}
+          files: ${{ matrix.artifact_name }}.zip
+          fail_on_unmatched_files: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Upload to release (Linux)
+        if: startsWith(github.ref, 'refs/tags/') && runner.os != 'Windows'
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.ref_name }}
+          files: ${{ matrix.artifact_name }}.tar.gz
           fail_on_unmatched_files: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
