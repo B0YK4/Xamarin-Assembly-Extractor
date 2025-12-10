@@ -1,6 +1,6 @@
 # Xamarin Assembly Extractor
 
-[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/) [![Platform](https://img.shields.io/badge/platform-windows%20%7C%20linux-lightgrey.svg)]
+[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/) ![Platform](https://img.shields.io/badge/platform-windows%20%7C%20linux-lightgrey.svg)
 
 Extract .NET/Xamarin managed assemblies (DLLs) from Android APKs and `libmonodroid_bundle_app.so` bundles.
 
@@ -122,5 +122,6 @@ output/
 - [apktool](https://github.com/iBotPeaches/Apktool) — Android APK reverse engineering tool
 
 ---
+
 
 **Keywords:** Xamarin, Mono, Android, APK, DLL, Assembly, Reverse Engineering, .NET, libmonodroid, AOT, Decompiler, Extractor, Security Research
